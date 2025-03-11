@@ -1,26 +1,64 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import styled from "styled-components";
+import Calculator from "./components/Calculator";
+import "./App.css";
+
+const AppContainer = styled.div`
+    min-height: 100vh;
+    background-color: #0f0f0f;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const Title = styled.h1`
+    color: #c5e4db;
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    font-weight: 600;
+
+    @media (max-width: 768px) {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+`;
+
+const Footer = styled.footer`
+    margin-top: 40px;
+    color: #8a8a8a;
+    font-size: 12px;
+    text-align: center;
+`;
+
+const Link = styled.a`
+    color: #4ce5b6;
+    text-decoration: none;
+
+    &:hover {
+        text-decoration: underline;
+    }
+`;
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <AppContainer>
+            {/* <Title>OBOL Programmatic Incentives Calculator</Title> */}
+            <Calculator />
+            <Footer>
+                ETH prices provided by{" "}
+                <Link
+                    href="https://www.coingecko.com/en/api"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    CoinGecko API
+                </Link>
+                <div>Last updated: {new Date().toLocaleDateString()}</div>
+            </Footer>
+        </AppContainer>
+    );
 }
 
 export default App;
