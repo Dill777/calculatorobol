@@ -57,14 +57,16 @@ function App() {
                 </Link>
                 {/* <div>Last updated: {new Date().toLocaleDateString()}</div> */}
                 <div>
-                    Built by{" "}
+                    Created by FOMOSapiens Labs as an Obol Public Good. Learn
+                    more{" "}
                     <Link
                         href="https://x.com/FomoSapiensLabs"
                         target="_blank"
                         rel="noopener noreferrer"
                     >
-                        FOMOSapiens Labs
+                        about us
                     </Link>
+                    .
                 </div>
             </Footer>
         </AppContainer>
