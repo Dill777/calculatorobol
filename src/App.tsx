@@ -55,7 +55,17 @@ function App() {
                 >
                     CoinGecko API
                 </Link>
-                <div>Last updated: {new Date().toLocaleDateString()}</div>
+                {/* <div>Last updated: {new Date().toLocaleDateString()}</div> */}
+                <div>
+                    Built by{" "}
+                    <Link
+                        href="https://x.com/FomoSapiensLabs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        FOMOSapiens Labs
+                    </Link>
+                </div>
             </Footer>
         </AppContainer>
     );

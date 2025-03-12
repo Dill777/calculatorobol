@@ -374,7 +374,7 @@ const Calculator: React.FC = () => {
                 borderColor: "#4ce5b6",
                 backgroundColor: "rgba(76, 229, 182, 0.1)",
                 tension: 0.4,
-                pointRadius: 0,
+                pointRadius: 1,
                 borderWidth: 2,
                 fill: false, // Don't fill below the line
             },
