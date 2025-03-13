@@ -287,12 +287,13 @@ const Calculator: React.FC = () => {
         const newIncentivesPerEth = (1 / totalParticipation) * OBOL_PER_YEAR;
         setIncentivesPerEth(newIncentivesPerEth);
 
-        // You earn = Your stake * Incentives per ETH staked
-        const newYourEarn = yourStake * newIncentivesPerEth;
-        setYourEarn(newYourEarn);
+        // You earn = Your stake * Incentives per ETH staked, capped at 12,500,000
+        const calculatedYourEarn = yourStake * newIncentivesPerEth;
+        const cappedYourEarn = Math.min(calculatedYourEarn, 12500000); // Cap at 12,500,000
+        setYourEarn(cappedYourEarn);
 
         // Incentives = OBOL Price * You earn
-        const newIncentivesDollar = obolPrice * newYourEarn;
+        const newIncentivesDollar = obolPrice * cappedYourEarn;
         setIncentivesDollar(newIncentivesDollar);
 
         // APY Boost = Incentives / (Your stake * ETH Price)
@@ -303,14 +304,13 @@ const Calculator: React.FC = () => {
 
     // Initial price fetch
     useEffect(() => {
+        // Initial fetch of ETH price
         fetchPrices();
 
-        const intervalId = setInterval(() => {
-            fetchPrices();
-        }, 10000);
+        // We've removed the automatic update interval as requested
+        // ETH price will now only update when the button is clicked
 
-        // Clean up interval on component unmount
-        return () => clearInterval(intervalId);
+        // No need for cleanup as there's no interval to clear
     }, [fetchPrices]);
 
     // Recalculate when inputs change
@@ -442,7 +442,7 @@ const Calculator: React.FC = () => {
                     title: (context: any) => {
                         const index = context[0].dataIndex;
                         const participation = chartLabels[index];
-                        return `Total Participation: ${participation.toLocaleString()} ETH`;
+                        return `Eligible Obol TVL: ${participation.toLocaleString()} ETH`;
                     },
                 },
             },
@@ -476,7 +476,7 @@ const Calculator: React.FC = () => {
 
                     <LeftBottomSection>
                         <InfoRow>
-                            <Label>Total participation</Label>
+                            <Label>Eligible Obol TVL</Label>
                             <InputWrapper>
                                 <Input
                                     type="text"
@@ -508,7 +508,7 @@ const Calculator: React.FC = () => {
                             </InputWrapper>
                         </InfoRow>
                         <InfoRow>
-                            <Label>Your earn</Label>
+                            <Label>You earn</Label>
                             <InputWrapper>
                                 <Value>{yourEarn.toFixed(0)}</Value>
                                 <SubValue>OBOL / year</SubValue>
@@ -551,7 +551,7 @@ const Calculator: React.FC = () => {
                             </InputWrapper>
                         </InfoRow>
                         <InfoRow>
-                            <Label>APY Boost</Label>
+                            <Label>APY on principal</Label>
                             <Value>{apyBoost.toFixed(2)}%</Value>
                         </InfoRow>
                     </LeftBottomSection>
