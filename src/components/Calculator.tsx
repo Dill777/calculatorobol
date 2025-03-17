@@ -112,6 +112,14 @@ const GraphTitle = styled.div`
     text-align: center;
 `;
 
+const DisclamerText = styled.div`
+    color: #ffffff;
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: left;
+`;
+
 const ChartContainer = styled.div`
     flex-grow: 1;
     height: 270px;
@@ -563,6 +571,10 @@ const Calculator: React.FC = () => {
                             <MainTitle>
                                 OBOL Programmatic Incentives Calculator
                             </MainTitle>
+                            <DisclamerText>
+                                Rewards may vary depending on the staking
+                                partner selected, please do your own research
+                            </DisclamerText>
                         </TitleContainer>
                     </ContainerTopRight>
                     <RightBottomSection>

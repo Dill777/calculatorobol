@@ -47,14 +47,14 @@ function App() {
             {/* <Title>OBOL Programmatic Incentives Calculator</Title> */}
             <Calculator />
             <Footer>
-                ETH prices provided by{" "}
-                <Link
+                ETH prices provided by Uniswap V3
+                {/* <Link
                     href="https://www.coingecko.com/en/api"
                     target="_blank"
                     rel="noopener noreferrer"
                 >
                     CoinGecko API
-                </Link>
+                </Link> */}
                 {/* <div>Last updated: {new Date().toLocaleDateString()}</div> */}
                 <div>
                     Created by FOMOSapiens Labs as an Obol Public Good. Learn
