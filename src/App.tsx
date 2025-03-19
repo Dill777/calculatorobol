@@ -1,6 +1,10 @@
 import React from "react";
 import styled from "styled-components";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Calculator from "./components/Calculator";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import TermsOfUse from "./components/TermsOfUse";
+import Footer from "./components/Footer";
 import "./App.css";
 
 const AppContainer = styled.div`
@@ -12,24 +16,19 @@ const AppContainer = styled.div`
     align-items: center;
 `;
 
-const Title = styled.h1`
-    color: #c5e4db;
-    text-align: center;
-    margin-bottom: 40px;
-    font-size: 32px;
-    font-weight: 600;
-
-    @media (max-width: 768px) {
-        font-size: 24px;
-        margin-bottom: 20px;
-    }
+const Content = styled.main`
+    flex: 1;
+    width: 100%;
+    max-width: 1200px;
 `;
 
-const Footer = styled.footer`
+const AppFooter = styled.footer`
     margin-top: 40px;
     color: #8a8a8a;
     font-size: 12px;
     text-align: center;
+    width: 100%;
+    max-width: 1200px;
 `;
 
 const Link = styled.a`
@@ -43,33 +42,38 @@ const Link = styled.a`
 
 function App() {
     return (
-        <AppContainer>
-            {/* <Title>OBOL Programmatic Incentives Calculator</Title> */}
-            <Calculator />
-            <Footer>
-                ETH prices provided by Uniswap V3
-                {/* <Link
-                    href="https://www.coingecko.com/en/api"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                >
-                    CoinGecko API
-                </Link> */}
-                {/* <div>Last updated: {new Date().toLocaleDateString()}</div> */}
-                <div>
-                    Created by FOMOSapiens Labs as an Obol Public Good. Learn
-                    more{" "}
-                    <Link
-                        href="https://x.com/FomoSapiensLabs"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                    >
-                        about us
-                    </Link>
-                    .
-                </div>
-            </Footer>
-        </AppContainer>
+        <Router>
+            <AppContainer>
+                <Content>
+                    <Routes>
+                        <Route path="/" element={<Calculator />} />
+                        <Route
+                            path="/privacy-policy"
+                            element={<PrivacyPolicy />}
+                        />
+                        <Route path="/terms-of-use" element={<TermsOfUse />} />
+                    </Routes>
+                </Content>
+
+                <AppFooter>
+                    <div>ETH prices provided by Uniswap V3</div>
+                    <div>
+                        Created by FOMOSapiens Labs as an Obol Public Good.
+                        Learn more{" "}
+                        <Link
+                            href="https://x.com/FomoSapiensLabs"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            about us
+                        </Link>
+                        .
+                    </div>
+                </AppFooter>
+
+                <Footer />
+            </AppContainer>
+        </Router>
     );
 }
 
