@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import { Line } from "react-chartjs-2";
+import ReactGA from "react-ga4";
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -278,12 +279,35 @@ const Calculator: React.FC = () => {
     // Fetch crypto prices
     const fetchPrices = useCallback(async () => {
         setIsUpdating(true);
+
+        // Track button click in Google Analytics
+        ReactGA.event({
+            category: "User Interaction",
+            action: "Click",
+            label: "Update ETH Price Button",
+        });
+
         try {
             const price = await fetchEthPrice();
             setEthPrice(price);
             setLastUpdated(new Date());
+
+            // Track successful price update
+            ReactGA.event({
+                category: "Data",
+                action: "ETH Price Updated",
+                label: "Success",
+                value: Math.round(price),
+            });
         } catch (error) {
             console.error("Error fetching crypto prices:", error);
+
+            // Track failed price update
+            ReactGA.event({
+                category: "Error",
+                action: "ETH Price Update Failed",
+                label: "API Error",
+            });
         } finally {
             setIsUpdating(false);
         }
@@ -345,7 +369,15 @@ const Calculator: React.FC = () => {
         // Remove all non-numeric characters from the input
         const rawValue = e.target.value.replace(/[^0-9]/g, "");
         const value = parseInt(rawValue, 10) || 0;
-        setTotalParticipation(value > 0 ? value : 1);
+        const newValue = value > 0 ? value : 1;
+        setTotalParticipation(newValue);
+
+        // Track total participation change
+        ReactGA.event({
+            category: "Calculator",
+            action: "Changed Total Participation",
+            value: newValue,
+        });
     };
 
     // Handle your stake input change
@@ -353,6 +385,13 @@ const Calculator: React.FC = () => {
         const value = parseFloat(e.target.value);
         if (!isNaN(value) && value >= 0) {
             setYourStake(value);
+
+            // Track stake change
+            ReactGA.event({
+                category: "Calculator",
+                action: "Changed Stake Amount",
+                value: Math.round(value),
+            });
         }
     };
 
@@ -361,6 +400,13 @@ const Calculator: React.FC = () => {
         // Convert to float
         const value = parseFloat(e.target.value) || 0;
         setEthPrice(value);
+
+        // Track manual ETH price change
+        ReactGA.event({
+            category: "Calculator",
+            action: "Changed ETH Price Manually",
+            value: Math.round(value),
+        });
     };
 
     // Handle OBOL price input change
@@ -368,6 +414,13 @@ const Calculator: React.FC = () => {
         // Convert to float
         const value = parseFloat(e.target.value) || 0;
         setObolPrice(value);
+
+        // Track OBOL price change
+        ReactGA.event({
+            category: "Calculator",
+            action: "Changed OBOL Price",
+            value: Math.round(value * 100), // Convert to cents for integer
+        });
     };
 
     // Correct chart data for more linear look

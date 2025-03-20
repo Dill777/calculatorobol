@@ -1,11 +1,31 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useLocation,
+} from "react-router-dom";
+import ReactGA from "react-ga4";
 import Calculator from "./components/Calculator";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import TermsOfUse from "./components/TermsOfUse";
 import Footer from "./components/Footer";
 import "./App.css";
+
+// Initialize Google Analytics
+ReactGA.initialize("G-EWR7FDVTD3");
+
+// Analytics tracking component
+const AnalyticsTracker = () => {
+    const location = useLocation();
+
+    useEffect(() => {
+        ReactGA.send({ hitType: "pageview", page: location.pathname });
+    }, [location]);
+
+    return null;
+};
 
 const AppContainer = styled.div`
     min-height: 100vh;
@@ -44,6 +64,9 @@ function App() {
     return (
         <Router>
             <AppContainer>
+                {/* Track page views */}
+                <AnalyticsTracker />
+
                 <Content>
                     <Routes>
                         <Route path="/" element={<Calculator />} />
