@@ -235,7 +235,7 @@ const Calculator: React.FC = () => {
     const OBOL_TOTAL_SUPPLY = 500000000;
     const INCENTIVES_PERCENTAGE = 2.5;
     const OBOL_PER_YEAR = OBOL_TOTAL_SUPPLY * (INCENTIVES_PERCENTAGE / 100);
-    const DEFAULT_TOTAL_PARTICIPATION = 100000;
+    const DEFAULT_TOTAL_PARTICIPATION = 356384;
 
     // State
     const [totalParticipation, setTotalParticipation] = useState<number>(
